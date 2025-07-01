@@ -19,8 +19,8 @@ def rebuild():
         autoescape=select_autoescape(["html", "xml"])
     )
     template = env.get_template("template.html")
-
-    books_pages = list(chunked(books, 10))
+    books_on_page = 10
+    books_pages = list(chunked(books, books_on_page))
     for number, book_page in enumerate(books_pages):
         rendered_page = template.render(
             books = book_page,
