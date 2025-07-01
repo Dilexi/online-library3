@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="../static/favicon-16x16.png" sizes="16x16">
+    <title>Online Library</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row  justify-content-center mt-3">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {% if current_page == 1 %}
+              <li class="page-item disabled"><a class="page-link" href="../pages/index-{{current_page-1}}.html">Назад</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="../pages/index-{{current_page-1}}.html">Назад</a></li>
+            {% endif %}
+            {% for page in range(1, pages_count+1) %}
+              {% if current_page == page %}
+                <li class="page-item active"><a class="page-link" href="../pages/index-{{page}}.html">{{page}}</a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="../pages/index-{{page}}.html">{{page}}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if current_page == pages_count %}
+              <li class="page-item disabled"><a class="page-link" href="../pages/index-{{current_page+1}}.html">Вперёд</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="../pages/index-{{current_page+1}}.html">Вперёд</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for book in books %}
+          <div class="col-md-6 mb-4">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="../media/{{book.img_src|urlencode}}" class="card-img" alt="Изображение обложки книги">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <p class="card-text">{{book.author}}</p>
+                    <p class="card-text" style="font-weight: 500; font-size: 14px;">{{book.genres}}</p>
+                    <p class="card-text"><a href="../media/{{book.book_path|urlencode}}" target="_blank">Читать</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
